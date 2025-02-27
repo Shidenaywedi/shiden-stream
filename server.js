@@ -1,18 +1,19 @@
-const express = require("express");
-const path = require("path");
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
 
-// Serve static files from the "public" folder
-app.use(express.static(path.join(__dirname, "public")));
+// Middleware
+app.use(cors()); // Allow frontend requests
+app.use(express.static('public')); // Serve frontend files
 
-// Route to serve the Jitsi meeting page
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+// API route to serve Jitsi API key securely
+app.get('/api/jitsi-key', (req, res) => {
+    console.log( process.env.JITSI_API_KEY)
+    res.json({ apiKey: process.env.JITSI_API_KEY });
 });
 
-// Start the server
-app.listen(PORT, () => {
-    console.log(`✅ Server running at http://localhost:${PORT}`);
-});
+// Start server
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
