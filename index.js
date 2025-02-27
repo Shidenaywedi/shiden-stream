@@ -5,11 +5,11 @@ const cors = require('cors');
 const app = express();
 const PORT = 3000;
 
-// CORS configuration to allow access from https://shiden-stream.onrender.com
+// CORS configuration to allow access from any origin
 const corsOptions = {
-    origin: 'https://shiden-stream.onrender.com', // Allow this specific domain
-    methods: ['GET', 'POST'],  // Methods that are allowed
-    allowedHeaders: ['Content-Type', 'Authorization'],  // Headers that are allowed
+    origin: '*', // Allow any origin
+    methods: ['GET', 'POST'],  // Allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers
     credentials: true,  // Allow cookies or other credentials
 };
 
