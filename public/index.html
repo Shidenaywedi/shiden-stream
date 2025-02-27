@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jitsi Meeting</title>
+
+    <!-- Load Jitsi API -->
+    <script src="https://8x8.vc/vpaas-magic-cookie-11648dbf752349199da85f0d15d6e7a5/external_api.js" async></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="container">
+        <h2>Welcome to Jitsi Meet</h2>
+        <p>Join your secure video meeting instantly.</p>
+        <button onclick="startMeeting()">Join Meeting</button>
+    </div>
+
+    <!-- Hidden Jitsi Container -->
+    <div id="jaas-container"></div>
+
+    <script>
+        function startMeeting() {
+            document.getElementById("container").style.display = "none"; // Hide the welcome screen
+            document.getElementById("jaas-container").style.display = "block"; // Show the meeting
+
+            // Ensure Jitsi API is loaded before using it
+            if (typeof JitsiMeetExternalAPI !== "undefined") {
+                const domain = "8x8.vc";
+                const options = {
+                    roomName: "vpaas-magic-cookie-11648dbf752349199da85f0d15d6e7a5/SampleAppVerticalShiftsComplementResponsibly",
+                    parentNode: document.querySelector("#jaas-container"),
+                    width: "100%",
+                    height: "100vh",
+                    configOverwrite: { startWithAudioMuted: false, startWithVideoMuted: false }
+                };
+
+                const api = new JitsiMeetExternalAPI(domain, options);
+
+                api.executeCommand("displayName", "Guest User"); // Set a display name
+            } else {
+                alert("Jitsi API failed to load! Please refresh the page.");
+            }
+        }
+    </script>
+
+</body>
+</html>
