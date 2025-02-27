@@ -13,8 +13,36 @@
     </style>
 
     <script>
+        // Function to request microphone and camera permissions
+        async function requestPermissions() {
+            try {
+                console.log("Requesting microphone and camera permissions...");
+
+                // Request access to the microphone and camera
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: true, 
+                    video: true 
+                });
+
+                console.log("Microphone and camera permissions granted.");
+
+                // Stop the stream to release the resources after permission is granted
+                stream.getTracks().forEach(track => track.stop());
+
+                return true; // Permissions granted
+            } catch (error) {
+                console.error("Permissions denied:", error);
+                alert("Microphone and camera permissions are required to use the meeting.");
+                return false; // Permissions denied
+            }
+        }
+
         window.onload = async () => {
             try {
+                // Request microphone and camera permissions
+                const permissionsGranted = await requestPermissions();
+                if (!permissionsGranted) return; // If permissions are not granted, stop execution
+
                 console.log("Fetching API key...");
 
                 // Fetch API key from backend
